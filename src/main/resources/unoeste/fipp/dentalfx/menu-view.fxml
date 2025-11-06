@@ -45,6 +45,13 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Sistema">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onCriarUsuario" text="Criar Usuario" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBackUp" text="Backup" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRestore" text="Restore" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

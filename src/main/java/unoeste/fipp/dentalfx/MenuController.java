@@ -5,13 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
 import unoeste.fipp.dentalfx.db.util.SingletonDB;
+import unoeste.fipp.dentalfx.utils.Seguranca;
 
+import java.io.File;
 import java.sql.ResultSet;
 
 public class MenuController {
@@ -127,4 +130,35 @@ public class MenuController {
 
     }
 
+    public void onCriarUsuario(ActionEvent actionEvent) {
+    }
+
+    public void onBackUp(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("sql file","*.sql"));
+        File bkp = fileChooser.showSaveDialog(null);
+        if(bkp != null){
+            try {
+
+                Seguranca.backup(bkp.getAbsolutePath(), "sisdentaldb");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    public void onRestore(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("sql file","*.sql"));
+        File bkp = fileChooser.showOpenDialog(null);
+        if(bkp != null){
+            try {
+
+                Seguranca.restaurar(bkp.getAbsolutePath(), "sisdentaldb");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

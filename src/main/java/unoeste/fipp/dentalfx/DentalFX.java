@@ -5,7 +5,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import unoeste.fipp.dentalfx.db.util.SingletonDB;
+import unoeste.fipp.dentalfx.utils.LoginPanel;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -13,15 +15,34 @@ import java.io.IOException;
 public class DentalFX extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        //Abrir o painel para login
-        //Selecionar o fxml de acordo com o nível de usuário
+        do
+        {
+            LoginPanel.loginValido = true;
+            LoginPanel.nivelAcesso = -1;
+            Stage stageLogin = new Stage();
+            stageLogin.initStyle(StageStyle.UTILITY);
+            LoginPanel pLogin = new LoginPanel();
+            pLogin.setPrefWidth(380);
+            stageLogin.setScene(new Scene(pLogin));
+            stageLogin.showAndWait();
+        }while (!LoginPanel.loginValido);
+        FXMLLoader fxmlLoader;
+        if (LoginPanel.nivelAcesso > 0){
+            if(LoginPanel.nivelAcesso >3){
+                fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
+            }
+            else {
+                fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
+                //montar tela dos betinhas
+            }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Procedimentos!");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Procedimentos!");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        }
+
     }
 
     public static void main(String[] args) {

@@ -22,15 +22,18 @@ public class UsuarioFormController implements Initializable {
         PessoaDal dal = new PessoaDal();
         Usuario alterar;
         if(usuario != null)
-            alterar = new Usuario(usuario.getId(),usuario.getNome(),usuario.getNivel(),usuario.getSenha());
+            alterar = new Usuario(usuario.getId(),tfNome.getText(),Integer.parseInt(tfNovel.getText()),tfSenha.getText());
         else{
             alterar = new Usuario(tfNome.getText(),Integer.parseInt(tfNovel.getText()),tfSenha.getText());
         }
         tfNome.getScene().getWindow().hide();
         if(usuario == null)
             dal.gravar(alterar);
-        else
+        else{
             dal.alterar(alterar);
+            System.out.println("Alterando");
+        }
+
     }
 
     public void onCancelar(ActionEvent actionEvent) {

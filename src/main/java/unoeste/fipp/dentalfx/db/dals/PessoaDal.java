@@ -90,19 +90,23 @@ public class PessoaDal implements IDAL<Pessoa> {
 
         }
         else {
+
             sql =
                     """
                            UPDATE usuario SET
-                            	uso_nome='#2', uso_nivel = #3, uso_senha = #4
+                            	uso_nome='#2', uso_nivel = #3, uso_senha = '#4'
                             	WHERE uso_id = #1
-                            	
                             """;
+
             sql = sql.replace("#1", "" + ((Usuario) entidade).getId());
             sql = sql.replace("#2", "" + ((Usuario) entidade).getNome());
             sql = sql.replace("#3", "" + ((Usuario) entidade).getNivel());
             sql = sql.replace("#4", "" + ((Usuario) entidade).getSenha());
+            System.out.println(sql);
         }
-        return SingletonDB.getConexao().manipular(sql);
+        SingletonDB.getConexao().manipular(sql);
+        System.out.println(SingletonDB.getConexao().getMensagemErro());
+        return true;
     }
 
 

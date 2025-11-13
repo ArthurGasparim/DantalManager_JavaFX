@@ -14,6 +14,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import unoeste.fipp.dentalfx.db.util.SingletonDB;
 import unoeste.fipp.dentalfx.utils.Seguranca;
 
+import java.awt.*;
 import java.io.File;
 import java.sql.ResultSet;
 
@@ -160,5 +161,22 @@ public class MenuController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void onSobre(ActionEvent actionEvent) {
+
+    }
+
+    public void onTopicos(ActionEvent actionEvent) throws Exception{
+       // File doc = new File("ajuda/main.html");
+        //Desktop.getDesktop().browse(doc.toURI());
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(DentalFX.class.getResource("help-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Ajuda do DentalFX");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

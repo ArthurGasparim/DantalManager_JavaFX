@@ -81,7 +81,7 @@ public class PacienteTableController implements Initializable {
         colid.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCidade.setCellValueFactory(new PropertyValueFactory<>("cidade"));
-        colCidade.setCellValueFactory(new PropertyValueFactory<>("fone"));
+        colFone.setCellValueFactory(new PropertyValueFactory<>("fone"));
         carregarTabela("");
     }
 

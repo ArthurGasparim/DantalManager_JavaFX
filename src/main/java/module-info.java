@@ -8,6 +8,7 @@ module unoeste.fipp.dentalfx {
     requires layout;
     requires io;
     requires jasperreports;
+    requires javafx.web;
 
     opens unoeste.fipp.dentalfx.db.entidades to javafx.base;
     opens unoeste.fipp.dentalfx to javafx.fxml;

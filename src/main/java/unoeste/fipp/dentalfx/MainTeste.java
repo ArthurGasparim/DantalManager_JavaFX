@@ -1,5 +1,6 @@
 package unoeste.fipp.dentalfx;
 
+import unoeste.fipp.dentalfx.db.dals.AgendaDAL;
 import unoeste.fipp.dentalfx.db.dals.MaterialDAL;
 import unoeste.fipp.dentalfx.db.dals.PessoaDal;
 import unoeste.fipp.dentalfx.db.dals.ProcedimentoDAL;
@@ -8,13 +9,16 @@ import unoeste.fipp.dentalfx.db.util.SingletonDB;
 import unoeste.fipp.dentalfx.utils.FichaPaciente;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class MainTeste {
-    public static void main(String[] args) {
-        if(FichaPaciente.gerarPDF("Teste.pdf")){
+    public static void main(String[] args) throws Exception{
+        /*if(FichaPaciente.gerarPDF("Teste.pdf")){
             FichaPaciente.abrirPDF("Teste.pdf");
         }
+        */
+
         SingletonDB.conectar();
         //MaterialDAL dal=new MaterialDAL();
         //ProcedimentoDAL dal = new ProcedimentoDAL();
@@ -45,15 +49,15 @@ public class MainTeste {
 
         //Testando agenda
         //Eu quero a agenda do dentista Zé na data de hoje
-        Dentista dentista = new Dentista(2,"Zé",1234,"18996227785","email@email.com");
+        /*Dentista dentista = new Dentista(2,"Zé",1234,"18996227785","email@email.com");
         PessoaDal pessoaDal = new PessoaDal();
         pessoaDal.apagar(dentista);
         List<Pessoa> pessoaList = pessoaDal.get("",new Dentista());
         Paciente paciente1 = new Paciente(1,"Rodolfo","","","","","","","","","","");
         Paciente paciente2 = new Paciente(2,"Rita","","","","","","","","","","");
         Agenda agenda = new Agenda(dentista, LocalDate.now());
-        agenda.addHorário(paciente1,9);
-        agenda.addHorário(paciente2,1);
+        //agenda.addHorário(paciente1,9);
+        //agenda.addHorário(paciente2,1);
 
         pessoaList.forEach(m->{
             System.out.println(m.getNome());
@@ -65,6 +69,8 @@ public class MainTeste {
         Material material = new Material(1,"ampola anestesica",25);
         atendimento.addMaterial(2,material);
         Horario horario= agenda.getHorario(1);
-        horario.setAtendimento(atendimento);
+        horario.setAtendimento(atendimento);*/
+        AgendaDAL agendaDAL = new AgendaDAL();
+        agendaDAL.gravar(new Agenda(new Dentista(1,"",0,"",""), LocalDate.of(2023,10,9)));
     }
 }

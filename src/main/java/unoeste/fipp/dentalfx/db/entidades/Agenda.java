@@ -19,9 +19,10 @@ public class Agenda {
         }
     }
 
-    public boolean addHorário(Paciente paciente, int sequencia){
-        return horarioList.add(new Horario(sequencia,paciente));
+    public void addHorario(Horario horario, int sequencia){
+        horarioList.set(sequencia, horario);
     }
+
 
     public Pessoa getDentista() {
         return dentista;

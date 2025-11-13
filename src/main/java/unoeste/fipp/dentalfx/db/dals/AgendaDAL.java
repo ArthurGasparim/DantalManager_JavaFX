@@ -6,6 +6,8 @@ import unoeste.fipp.dentalfx.db.util.SingletonDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgendaDAL {
     public Agenda get(Dentista dentista, LocalDate date){
@@ -31,10 +33,9 @@ public class AgendaDAL {
                     while (rsmat.next()){
                         atendimento.addProcedimento(rsmat.getInt("cp_quanto"),procedimentoDAL.get(rsmat.getInt("pro_id")));
                     }
-
+                    horario.setAtendimento(atendimento);
                 }
-
-
+                agenda.addHorario(horario,horario.getSequencia());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -42,9 +43,24 @@ public class AgendaDAL {
         return agenda;
     }
 
-    public boolean gravar(Agenda agenda){
+    public boolean gravar(Agenda agenda) throws Exception{
         //apagar todas as linhas da tabela cons_mat relacionados a data e ao dentista (Informações da agenda recebida por parametro)
         //apagar todas as linhas da tabela cons_proc relacionados a data e ao dentista (Informações da agenda recebida por parametro)
+        System.out.println(agenda.getData().toString());
+        String sql = "Select * from consulta where den_id = " + agenda.getDentista().getId()+ " and con_data = '"+agenda.getData().toString()+"'";
+        System.out.println(sql);
+        ResultSet rs = SingletonDB.getConexao().consultar(sql);
+        try {
+            while (rs.next()){
+                int con_id = rs.getInt("con_id");
+                System.out.println(con_id);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         //teste o delete cascade e use opcional,emte para as duas ações acima
         //apagar todas as consultas relacionadas a data e ao dentista
         //gravar denovo

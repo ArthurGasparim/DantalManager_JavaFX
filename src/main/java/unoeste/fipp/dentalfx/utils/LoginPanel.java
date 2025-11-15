@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 public class LoginPanel extends VBox {
     public static boolean loginValido = false;
     public static int nivelAcesso = 0;
+    public static String nome;
 
     public LoginPanel(){
         super();
@@ -33,6 +34,7 @@ public class LoginPanel extends VBox {
             String password = passwordField.getText();
             try {
                 loginValido = verifyLogin(login, password);
+                nome = loginField.getText();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

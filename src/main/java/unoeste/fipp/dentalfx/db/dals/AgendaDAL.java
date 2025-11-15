@@ -13,8 +13,9 @@ public class AgendaDAL {
     public Agenda get(Dentista dentista, LocalDate date){
         Agenda agenda = new Agenda(dentista,date);
         String sql = "SELECT * FROM consulta where den_id = #1 AND con_data = '#2'";
-        sql.replace("#1",dentista.getId()+"");
-        sql.replace("#2",date.toString());
+        sql = sql.replace("#1",dentista.getId()+"");
+        sql = sql.replace("#2",date.toString());
+        System.out.println(sql);
         PessoaDal dalPac = new PessoaDal();
         MaterialDAL dalMat = new MaterialDAL();
         ProcedimentoDAL procedimentoDAL = new ProcedimentoDAL();
@@ -53,7 +54,34 @@ public class AgendaDAL {
         try {
             while (rs.next()){
                 int con_id = rs.getInt("con_id");
-                System.out.println(con_id);
+                int horario = rs.getInt("con_horario");
+                String sql1 = "Delete * from cons_proc WHERE con_id="+con_id;
+                String sql2 = "Delete * from cons_proc WHERE con_id="+con_id;
+                SingletonDB.getConexao().manipular(sql1);
+                SingletonDB.getConexao().manipular(sql2);
+                Horario horarioAg = agenda.getHorario(horario);
+                for(Atendimento.MatItem m : horarioAg.getAtendimento().getMaterialList()){
+                    sql = """
+                            Insert into cons_mat (mat_id, con_id, cm_quant) 
+                            VALUES  (#1, #2, #3)
+  
+                            """;
+                    sql = sql.replace("#1",""+ m.material().getId());
+                    sql = sql.replace("#2", ""+ con_id);
+                    sql = sql.replace("#3",""+ m.quant());
+                    SingletonDB.getConexao().manipular(sql);
+                }
+                for(Atendimento.ProcItem p: horarioAg.getAtendimento().getProcedimentoList()){
+                    sql = """
+                            Insert into cons_proc (con_id, proc_id, cp_quant) 
+                            VALUES  (#1, #2, #3)
+  
+                            """;
+                    sql = sql.replace("#1",""+  con_id);
+                    sql = sql.replace("#2", ""+p.procedimento().getId());
+                    sql = sql.replace("#3",""+ p.quant());
+                    SingletonDB.getConexao().manipular(sql);
+                }
             }
 
         } catch (SQLException e) {

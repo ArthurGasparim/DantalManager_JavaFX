@@ -15,12 +15,19 @@ public class Agenda {
         horarioList = new ArrayList<>();
         //criando os 10 horários de atendimento diário
         for(int i=0; i < 10; i++){
-            horarioList.add(new Horario());
+            horarioList.add(new Horario(i+8,null));
         }
     }
 
     public void addHorario(Horario horario, int sequencia){
-        horarioList.set(sequencia, horario);
+        for(Horario h : horarioList){
+            if(h.getSequencia() == sequencia){
+               horarioList.set(horarioList.indexOf(h),horario);
+                break;
+            }
+
+        }
+        //horarioList.set(sequencia, horario);
     }
 
 

@@ -29,6 +29,14 @@ public class Atendimento {
         return procedimentoList.add(new ProcItem(procedimento,quantidade));
     }
 
+    public List<MatItem> getMaterialList() {
+        return materialList;
+    }
+
+    public List<ProcItem> getProcedimentoList() {
+        return procedimentoList;
+    }
+
     public void setRelato(String relato) {
         this.relato = relato;
     }

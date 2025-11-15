@@ -6,15 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import unoeste.fipp.dentalfx.db.dals.PessoaDal;
+import unoeste.fipp.dentalfx.db.entidades.Dentista;
 import unoeste.fipp.dentalfx.db.util.SingletonDB;
 import unoeste.fipp.dentalfx.utils.LoginPanel;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class DentalFX extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         do
         {
             LoginPanel.loginValido = true;
@@ -28,8 +31,16 @@ public class DentalFX extends Application {
         }while (!LoginPanel.loginValido);
         FXMLLoader fxmlLoader;
         if (LoginPanel.nivelAcesso > 0){
-            if(LoginPanel.nivelAcesso >3){
-                fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
+            if(LoginPanel.nivelAcesso == 3){
+                System.out.println(LoginPanel.nome);
+                String sql = "Select * from dentista WHERE den_nome LIKE '"+LoginPanel.nome+"'";
+                ResultSet resultSet = SingletonDB.getConexao().consultar(sql);
+                if (resultSet.next()){
+                    Dentista dentista =new Dentista(resultSet.getInt("den_id"),resultSet.getString("den_nome"),resultSet.getInt("den_cro"),resultSet.getString("den_fone"),resultSet.getString("den_email"));
+                    AgendamentoDentController.dentista = dentista;
+                }
+
+                fxmlLoader = new FXMLLoader(DentalFX.class.getResource("agendamentoDent-view.fxml"));
             }
             else {
                 fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));

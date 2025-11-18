@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane prefHeight="519.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unoeste.fipp.dentalfx.AlteraAgendamentoView">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+          <Button mnemonicParsing="false" onAction="#onConfirmar" prefHeight="34.0" prefWidth="95.0" text="Confirmar" />
+            <Button mnemonicParsing="false" onAction="#onCancelar" prefHeight="34.0" prefWidth="95.0" text="Cancelar" />
+            <Button mnemonicParsing="false" onAction="#onExcluir" prefHeight="34.0" prefWidth="95.0" text="Excluir" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tfHorario" layoutX="52.0" layoutY="71.0" />
+            <TextField fx:id="tfPaciente" layoutX="52.0" layoutY="135.0" />
+            <TableView fx:id="tbMaterial" layoutX="257.0" layoutY="71.0" prefHeight="275.0" prefWidth="221.0">
+              <columns>
+                <TableColumn fx:id="colMatID" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="ColMatNome" prefWidth="75.0" text="NOME" />
+                  <TableColumn fx:id="ColMatQuant" prefWidth="75.0" text="QUANT" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tbProc" layoutX="500.0" layoutY="72.0" prefHeight="275.0" prefWidth="221.0">
+               <columns>
+                  <TableColumn fx:id="ColProcID" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="ColProcNome" prefWidth="75.0" text="NOME" />
+                  <TableColumn fx:id="ColProcQuant" prefWidth="75.0" text="QUANT" />
+               </columns>
+            </TableView>
+            <Label fx:id="lbData" layoutX="52.0" layoutY="14.0" text="LBData" />
+            <Label fx:id="lbNomeDent" layoutX="127.0" layoutY="14.0" text="LBNomeDent" />
+            <Label layoutX="52.0" layoutY="43.0" text="Horário" />
+            <Label layoutX="57.0" layoutY="109.0" text="Paciente" />
+            <TextField fx:id="tfRelato" layoutX="52.0" layoutY="210.0" />
+            <Label layoutX="57.0" layoutY="184.0" text="Relato" />
+            <CheckBox fx:id="toggleEf" layoutX="53.0" layoutY="271.0" mnemonicParsing="false" text="Efetivado" />
+            <Label layoutX="268.0" layoutY="23.0" text="Materiais" />
+            <Label layoutX="511.0" layoutY="23.0" text="Procedimentos" />
+            <Button layoutX="336.0" layoutY="19.0" mnemonicParsing="false" onAction="#onAddMatItem" text="+" />
+            <Button layoutX="598.0" layoutY="19.0" mnemonicParsing="false" onAction="#onAddProcItem" text="+" />
+            <Button layoutX="368.0" layoutY="19.0" mnemonicParsing="false" onAction="#onRmvMatItem" text="-" />
+            <Button layoutX="634.0" layoutY="19.0" mnemonicParsing="false" onAction="#onRmvProcItem" text="-" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

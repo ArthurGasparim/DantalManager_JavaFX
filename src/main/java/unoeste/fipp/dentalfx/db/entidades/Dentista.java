@@ -12,6 +12,11 @@ public class Dentista extends Pessoa{
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+
     public Dentista(String nome, int cro, String fone, String email) {
         super(nome);
         this.cro = cro;

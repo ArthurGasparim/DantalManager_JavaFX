@@ -4,11 +4,20 @@ public class Horario {
     private int sequencia;
     private Paciente paciente;
     private Atendimento atendimento;
+    private int conId;
 
     public Horario(int sequencia, Paciente paciente) {
         this.sequencia = sequencia;
         this.paciente = paciente;
         atendimento = null;
+    }
+
+    public int getConId() {
+        return conId;
+    }
+
+    public void setConId(int conId) {
+        this.conId = conId;
     }
 
     public Horario() {

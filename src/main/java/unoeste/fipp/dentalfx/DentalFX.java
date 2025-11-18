@@ -43,7 +43,10 @@ public class DentalFX extends Application {
                 fxmlLoader = new FXMLLoader(DentalFX.class.getResource("agendamentoDent-view.fxml"));
             }
             else {
-                fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
+                if (LoginPanel.nivelAcesso == 1)
+                    fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menu-view.fxml"));
+                else
+                    fxmlLoader = new FXMLLoader(DentalFX.class.getResource("menuSecre-view.fxml"));
                 //montar tela dos betinhas
             }
 

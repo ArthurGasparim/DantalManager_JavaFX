@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_atendimentos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="73c1c95b-0974-4b55-a226-f78f8e79c450">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+    <style name="ZebraRowStyle" mode="Opaque">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+            <style backcolor="#F0F8FF"/>
+        </conditionalStyle>
+    </style>
+    <parameter name="P_DATA_INICIO" class="java.sql.Date">
+        <defaultValueExpression><![CDATA[java.sql.Date.valueOf(java.time.LocalDate.now().minusMonths(1))]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_DATA_FIM" class="java.sql.Date">
+        <defaultValueExpression><![CDATA[java.sql.Date.valueOf(java.time.LocalDate.now())]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_DEN_ID" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
+    <queryString language="SQL">
+        <![CDATA[SELECT
+	c.con_id,
+	c.con_data,
+	c.con_horario,
+	c.con_relato,
+	p.pac_nome,
+	d.den_nome,
+	d.den_cro
+FROM
+	public.consulta c
+JOIN
+	public.paciente p ON c.pac_id = p.pac_id
+JOIN
+	public.dentista d ON c.den_id = d.den_id
+WHERE
+	c.con_efetivado = true
+	AND c.con_data BETWEEN $P{P_DATA_INICIO} AND $P{P_DATA_FIM}
+	AND ($P{P_DEN_ID} IS NULL OR c.den_id = $P{P_DEN_ID})
+ORDER BY
+	d.den_nome, c.con_data, c.con_horario]]>
+    </queryString>
+    <field name="con_id" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="con_id"/>
+        <property name="com.jaspersoft.studio.field.label" value="con_id"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+    </field>
+    <field name="con_data" class="java.sql.Date">
+        <property name="com.jaspersoft.studio.field.name" value="con_data"/>
+        <property name="com.jaspersoft.studio.field.label" value="con_data"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+    </field>
+    <field name="con_horario" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="con_horario"/>
+        <property name="com.jaspersoft.studio.field.label" value="con_horario"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+    </field>
+    <field name="con_relato" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="con_relato"/>
+        <property name="com.jaspersoft.studio.field.label" value="con_relato"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+    </field>
+    <field name="pac_nome" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="pac_nome"/>
+        <property name="com.jaspersoft.studio.field.label" value="pac_nome"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+    </field>
+    <field name="den_nome" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="den_nome"/>
+        <property name="com.jaspersoft.studio.field.label" value="den_nome"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="dentista"/>
+    </field>
+    <field name="den_cro" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="den_cro"/>
+        <property name="com.jaspersoft.studio.field.label" value="den_cro"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="dentista"/>
+    </field>
+    <group name="Group_Dentista">
+        <groupExpression><![CDATA[$F{den_nome}]]></groupExpression>
+        <groupHeader>
+            <band height="25">
+                <textField>
+                    <reportElement x="0" y="5" width="555" height="20" forecolor="#006699" uuid="88e02d84-c8c2-4809-9b59-43c242c7f53e"/>
+                    <textElement>
+                        <font size="12" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Dentista: " + $F{den_nome} + " (CRO: " + $F{den_cro} + ")"]]></textFieldExpression>
+                </textField>
+                <line>
+                    <reportElement x="0" y="2" width="555" height="1" forecolor="#006699" uuid="2a59a7a0-0447-4951-a20c-c68c4a4f8959"/>
+                </line>
+            </band>
+        </groupHeader>
+    </group>
+    <background>
+        <band/>
+    </background>
+    <title>
+        <band height="55">
+            <frame>
+                <reportElement mode="Opaque" x="-20" y="-20" width="595" height="53" backcolor="#006699" uuid="7fe090ad-3369-4b3c-bc80-8f114ee6ddf2"/>
+                <staticText>
+                    <reportElement x="10" y="5" width="180" height="43" forecolor="#FFFFFF" uuid="ffd18b77-48e5-4cec-97df-f03143facda1"/>
+                    <textElement markup="rtf">
+                        <font size="24" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[DentalFX]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="270" y="21" width="305" height="20" forecolor="#FFFFFF" uuid="25e9656a-019b-421d-a7e2-7dd0ab9fb466"/>
+                    <textElement textAlignment="Right">
+                        <font size="14" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[Relatório de Atendimentos Realizados]]></text>
+                </staticText>
+            </frame>
+            <textField>
+                <reportElement x="0" y="38" width="555" height="15" uuid="93425028-c11c-4b3d-b2a6-0610f44359c4"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA["Período de: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{P_DATA_INICIO}) + " a " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{P_DATA_FIM})]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="3"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="21">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f2c94fc0-14dc-4213-b477-a4585f92d3ba">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc31122-59ae-4593-b443-29d4892b062d"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Data]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="60" y="0" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="a95e066e-9157-48a9-b23a-9aa5aaea2297">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff278092-1cc4-4e7a-8544-d1eee1d9a8f6"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Hora]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="120" y="0" width="150" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c137a672-4e9b-4654-b580-f21e51cfa49e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6f6a73a3-4b6e-4b4e-9b6f-7d551f8c5377"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Paciente]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="270" y="0" width="285" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2437d332-d41e-43cc-b580-a08d4a0ca3d0">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb8891ca-e76b-4f3b-9806-7d551f8c5377"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#006699"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Relato da Consulta]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20" splitType="Stretch">
+            <property name="local_styles" value="ZebraRowStyle"/>
+            <textField textAdjust="StretchHeight" pattern="dd/MM/yyyy">
+                <reportElement style="ZebraRowStyle" x="0" y="0" width="60" height="20" uuid="9a382018-1dae-4452-8a18-2c10c4513c76">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc31122-59ae-4593-b443-29d4892b062d"/>
+                </reportElement>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{con_data}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" pattern="00">
+                <reportElement style="ZebraRowStyle" x="60" y="0" width="60" height="20" uuid="f351f67e-fe3c-4626-8f5f-59852c75f21d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff278092-1cc4-4e7a-8544-d1eee1d9a8f6"/>
+                </reportElement>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{con_horario}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="ZebraRowStyle" x="120" y="0" width="150" height="20" uuid="9a1f28e8-6c8a-4d2d-8b02-b2b2d09f9a57">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6f6a73a3-4b6e-4b4e-9b6f-7d551f8c5377"/>
+                </reportElement>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{pac_nome}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="ZebraRowStyle" x="270" y="0" width="285" height="20" uuid="70fa53ba-69ae-4523-86d2-b2b2d09f9a57">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb8891ca-e76b-4f3b-9806-7d551f8c5377"/>
+                </reportElement>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{con_relato}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band/>
+    </columnFooter>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="023d53ad-6cb9-4bba-b6a6-dd059ca072c7"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="74e5e229-d1df-47f8-8703-ec646f6f871e"/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="d &apos;de&apos; MMM &apos;de&apos; yyyy">
+                <reportElement x="0" y="4" width="100" height="13" uuid="ea067d2d-ddee-4dbc-9a03-d28318cb6871"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band/>
+    </summary>
+</jasperReport>

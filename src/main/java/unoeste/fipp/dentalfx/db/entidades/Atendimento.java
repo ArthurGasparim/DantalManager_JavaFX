@@ -10,9 +10,11 @@ public class Atendimento {
     private String relato;
     private List<MatItem> materialList;
     private List<ProcItem> procedimentoList;
+    private boolean efetivado;
 
-    public Atendimento(String relato) {
+    public Atendimento(String relato,boolean efetivado) {
         this.relato = relato;
+        this.efetivado = efetivado;
         materialList = new ArrayList<>();
         procedimentoList = new ArrayList<>();
     }
@@ -27,6 +29,17 @@ public class Atendimento {
 
     public boolean addProcedimento(int quantidade, Procedimento procedimento){
         return procedimentoList.add(new ProcItem(procedimento,quantidade));
+    }
+    public boolean efetivado(){
+        return efetivado;
+    }
+
+    public void setMaterialList(List<MatItem> materialList) {
+        this.materialList = materialList;
+    }
+
+    public void setProcedimentoList(List<ProcItem> procedimentoList) {
+        this.procedimentoList = procedimentoList;
     }
 
     public List<MatItem> getMaterialList() {

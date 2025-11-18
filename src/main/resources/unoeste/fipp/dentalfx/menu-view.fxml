@@ -9,11 +9,6 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Funcionalidades">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#onAgendamento" text="Agendamento" />
-            </items>
-          </Menu>
           <Menu mnemonicParsing="false" text="Tabelas">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onDentista" text="Dentistas" />
@@ -36,6 +31,7 @@
                   <Menu mnemonicParsing="false" text="Relatorios Analiticos">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#onRelAtendimento" text="Atendimento" />
+                        <MenuItem mnemonicParsing="false" onAction="#onRelPacientePDF" text="PacienntePDF" />
                      </items>
                   </Menu>
                </items>

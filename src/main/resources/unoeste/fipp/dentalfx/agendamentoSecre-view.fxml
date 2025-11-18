@@ -69,7 +69,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Button>
-                                <Button layoutX="241.0" layoutY="42.0" mnemonicParsing="false" onAction="#onCancelarAgendamento" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FFBBBB;" text="Cancelar Agendamento" textFill="WHITE">
+                                <Button layoutX="241.0" layoutY="42.0" mnemonicParsing="false" onAction="#onCancelarAgendamento" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FFBBBB;" text="Visualizar Agendamento" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
